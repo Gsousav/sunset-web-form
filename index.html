@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunset - Registro de Gastos</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="sunset-gastos.css">
+</head>
+<body>
+    <div class="container">
+        
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">☀️</span>
+                SUNSET
+            </div>
+            <p class="header-subtitle">Registro de Gastos</p>
+        </header>
+
+        <!-- User Selection -->
+        <section class="card">
+            <h2 class="card-title">
+                <span class="card-title-icon">👤</span>
+                ¿Quién registra?
+            </h2>
+            <div class="user-select-wrapper">
+                <select class="user-select" id="userSelect">
+                    <option value="">Seleccionar...</option>
+                    <option value="Andres">Andrés</option>
+                    <option value="Lucia">Lucía</option>
+                    <option value="Matias">Matías</option>
+                    <option value="Otro">Otro</option>
+                </select>
+            </div>
+        </section>
+
+        <!-- Quick Expenses -->
+        <section class="card">
+            <h2 class="card-title">
+                <span class="card-title-icon">⚡</span>
+                Gastos Rápidos
+            </h2>
+            <div class="quick-buttons">
+                <button class="quick-btn" data-code="GV-06" data-category="Servicio Envíos / Repartos" data-description="Movilidad y taxi">
+                    <span class="quick-btn-icon">🚕</span>
+                    Movilidad
+                    <span class="quick-btn-label">GV-06</span>
+                </button>
+                <button class="quick-btn" data-code="CI-01" data-category="Servicios básicos y operación" data-description="Luz Fabrica">
+                    <span class="quick-btn-icon">⚡</span>
+                    Luz Fábrica
+                    <span class="quick-btn-label">CI-01</span>
+                </button>
+                <button class="quick-btn" data-code="CI-01" data-category="Servicios básicos y operación" data-description="Agua Fabrica">
+                    <span class="quick-btn-icon">💧</span>
+                    Agua Fábrica
+                    <span class="quick-btn-label">CI-01</span>
+                </button>
+                <button class="quick-btn" data-code="MD-04" data-category="Cuerdas Fundas Otros" data-description="Materiales varios">
+                    <span class="quick-btn-icon">📦</span>
+                    Materiales
+                    <span class="quick-btn-label">MD-04</span>
+                </button>
+                <button class="quick-btn" data-code="GV-06" data-category="Servicio Envíos / Repartos" data-description="DHL / Envíos Export">
+                    <span class="quick-btn-icon">🚚</span>
+                    Envíos
+                    <span class="quick-btn-label">GV-06</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- AI Input -->
+        <section class="card">
+            <h2 class="card-title">
+                <span class="card-title-icon">✨</span>
+                ¿Otro gasto? Escríbelo
+            </h2>
+            <div class="ai-input-wrapper">
+                <textarea 
+                    class="ai-input" 
+                    id="aiInput" 
+                    placeholder="Ej: yape 50 soles foam proveedor"
+                    rows="2"
+                ></textarea>
+                <button class="ai-send-btn" id="aiSendBtn">➤</button>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ============================================
+         MODAL: Quick Expense
+         ============================================ -->
+    <div class="modal-overlay" id="quickModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-icon" id="quickModalIcon">🚕</div>
+                <div>
+                    <div class="modal-title" id="quickModalTitle">Movilidad</div>
+                    <div class="modal-subtitle" id="quickModalSubtitle">GV-06 • Servicio Envíos</div>
+                </div>
+            </div>
+            
+            <div class="modal-field">
+                <label class="modal-label" for="quickAmount">Monto (S/)</label>
+                <input type="number" class="modal-input modal-input-large" id="quickAmount" placeholder="0.00" inputmode="decimal">
+            </div>
+            
+            <div class="modal-field">
+                <label class="modal-label" for="quickNote">Nota (opcional)</label>
+                <input type="text" class="modal-input" id="quickNote" placeholder="Detalles adicionales...">
+            </div>
+
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-cancel" id="quickCancel">Cancelar</button>
+                <button class="modal-btn modal-btn-confirm" id="quickConfirm">Registrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         MODAL: AI Response (Editable)
+         ============================================ -->
+    <div class="modal-overlay" id="aiModal">
+        <div class="modal">
+            <div class="modal-header">
+                <div class="modal-icon">🤖</div>
+                <div>
+                    <div class="modal-title">Análisis AI</div>
+                    <div class="modal-subtitle">Verifica y edita si es necesario</div>
+                </div>
+            </div>
+            
+            <!-- Loading state -->
+            <div class="ai-result" id="aiLoading">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    Analizando...
+                </div>
+            </div>
+
+            <!-- Editable form (hidden initially) -->
+            <div id="aiForm" style="display: none;">
+                <div class="modal-field">
+                    <label class="modal-label" for="aiCodigo">Código</label>
+                    <select class="modal-select" id="aiCodigo">
+                        <option value="MD-01">MD-01 - Blanks (tabla)</option>
+                        <option value="MD-02">MD-02 - Vinilo (forros)</option>
+                        <option value="MD-03">MD-03 - Accesorios Tablas</option>
+                        <option value="MD-04">MD-04 - Cuerdas Fundas Otros</option>
+                        <option value="MD-05">MD-05 - Embalaje y otros</option>
+                        <option value="MD-06">MD-06 - Fibra de vidrio</option>
+                        <option value="GV-01">GV-01 - Sueldos y Comisiones</option>
+                        <option value="GV-02">GV-02 - Publicidad</option>
+                        <option value="GV-03">GV-03 - Contenido Audiovisual</option>
+                        <option value="GV-04">GV-04 - Dalias Alquiler/Servicios</option>
+                        <option value="GV-05">GV-05 - Página Web</option>
+                        <option value="GV-06">GV-06 - Servicio Envíos/Repartos</option>
+                        <option value="GA-01">GA-01 - Sueldos Administrativos</option>
+                        <option value="GA-02">GA-02 - Impuestos y otros</option>
+                        <option value="GA-03">GA-03 - Servicios Admin</option>
+                        <option value="GA-04">GA-04 - Otros Admin</option>
+                        <option value="CI-01">CI-01 - Servicios fábrica</option>
+                        <option value="CI-02">CI-02 - Insumos y mantenimiento</option>
+                        <option value="CI-03">CI-03 - Servicios de terceros</option>
+                        <option value="CI-04">CI-04 - Activos y alquileres</option>
+                        <option value="MO-01">MO-01 - Mano de Obra</option>
+                        <option value="IL-01">IL-01 - Importaciones</option>
+                        <option value="IL-02">IL-02 - Productos Locales</option>
+                        <option value="CF-01">CF-01 - Café Sunset Dalias</option>
+                    </select>
+                </div>
+
+                <div class="modal-field">
+                    <label class="modal-label" for="aiDescripcion">Descripción</label>
+                    <input type="text" class="modal-input" id="aiDescripcion" placeholder="Descripción del gasto">
+                </div>
+
+                <div class="modal-field">
+                    <label class="modal-label" for="aiMonto">Monto (S/)</label>
+                    <input type="number" class="modal-input modal-input-large" id="aiMonto" placeholder="0.00" inputmode="decimal">
+                </div>
+
+                <div class="modal-field">
+                    <label class="modal-label" for="aiNota">Nota</label>
+                    <input type="text" class="modal-input" id="aiNota" placeholder="Nota adicional (opcional)">
+                </div>
+            </div>
+
+            <div class="modal-buttons" id="aiButtons" style="display: none;">
+                <button class="modal-btn modal-btn-cancel" id="aiCancel">Cancelar</button>
+                <button class="modal-btn modal-btn-confirm" id="aiConfirm">✓ Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <span>✓</span>
+        ¡Gasto registrado!
+    </div>
+
+    <!-- JavaScript -->
+    <script src="sunset-gastos.js"></script>
+</body>
+</html>
