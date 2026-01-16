@@ -505,3 +505,8 @@ body {
         padding: 20px;
     }
 }
+
+/* Ocultar toda la sección de gastos rápidos */
+section.card:nth-of-type(2) {
+    display: none !important;
+}
