@@ -69,6 +69,7 @@ const aiConfirm = document.getElementById('aiConfirm');
 const aiCodigo = document.getElementById('aiCodigo');
 const aiDescripcion = document.getElementById('aiDescripcion');
 const aiMonto = document.getElementById('aiMonto');
+const aiMoneda = document.getElementById('aiMoneda')
 const aiNota = document.getElementById('aiNota');
 
 // Toast
@@ -250,6 +251,7 @@ function showAIResult(data) {
     aiCodigo.value = data.codigo || 'MD-01';
     aiDescripcion.value = data.descripcion || '';
     aiMonto.value = data.monto || 0;
+    aiMoneda.value = data.moneda || "PEN"
     aiNota.value = data.nota || '';
 
     // Focus en monto para verificar
@@ -262,6 +264,7 @@ aiCancel.addEventListener('click', () => {
 
 aiConfirm.addEventListener('click', async () => {
     const monto = parseFloat(aiMonto.value);
+    const moneda = aiMoneda.value;
     if (!monto || monto <= 0) {
         alert('Por favor ingresa un monto válido');
         aiMonto.focus();
@@ -282,6 +285,7 @@ aiConfirm.addEventListener('click', async () => {
         categoria: categoria,
         descripcion: aiDescripcion.value,
         monto: monto,
+        moneda: moneda,
         nota: aiNota.value || '',
         registrado_por: userSelect.value,
         timestamp: getTimestamp()
