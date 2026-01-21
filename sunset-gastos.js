@@ -398,8 +398,24 @@ function getPaymentValue() {
 }
 
 function getTimestamp() {
-    return new Date().toISOString();
+    const now = new Date();
+
+    const parts = new Intl.DateTimeFormat('sv-SE', {
+        timeZone: 'America/Lima',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    }).formatToParts(now);
+
+    const get = (type) => parts.find(p => p.type === type).value;
+
+    return `${get('year')}-${get('month')}-${get('day')}T` +
+           `${get('hour')}:${get('minute')}:${get('second')}.000Z`;
 }
+
 
 function getDate() {
     return new Date().toLocaleDateString('es-PE');
