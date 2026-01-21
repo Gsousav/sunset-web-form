@@ -1,6 +1,6 @@
 /* ============================================
    SUNSET SURF SHOP - Registro de Gastos
-   Estilos del formulario
+   Estilos del formulario v2
    ============================================ */
 
 /* Reset y variables */
@@ -97,51 +97,6 @@ body {
 }
 
 /* ============================================
-   Quick Buttons
-   ============================================ */
-.quick-buttons {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 12px;
-}
-
-.quick-btn {
-    background: white;
-    border: 2px solid var(--sand-dark);
-    border-radius: 14px;
-    padding: 16px 12px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text-dark);
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-}
-
-.quick-btn:hover {
-    border-color: var(--sunset-orange);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.2);
-}
-
-.quick-btn:active {
-    transform: translateY(0);
-}
-
-.quick-btn-icon {
-    font-size: 24px;
-}
-
-.quick-btn-label {
-    font-size: 12px;
-    color: var(--text-light);
-}
-
-/* ============================================
    User Select
    ============================================ */
 .user-select-wrapper {
@@ -169,6 +124,86 @@ body {
 .user-select:focus {
     outline: none;
     border-color: var(--sunset-orange);
+}
+
+/* ============================================
+   Formas de Pago (Payment Methods)
+   ============================================ */
+.payment-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.payment-btn {
+    background: white;
+    border: 2px solid var(--sand-dark);
+    border-radius: 14px;
+    padding: 14px 8px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+}
+
+.payment-btn:hover {
+    border-color: var(--sunset-orange);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.2);
+}
+
+.payment-btn.selected {
+    border-color: var(--sunset-orange);
+    background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(255, 181, 71, 0.1));
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.2);
+}
+
+.payment-btn-icon {
+    font-size: 24px;
+}
+
+.payment-btn-label {
+    line-height: 1.2;
+}
+
+/* Campo adicional para Transferencia y Otros */
+.payment-extra-field {
+    margin-top: 12px;
+    display: none;
+}
+
+.payment-extra-field.visible {
+    display: block;
+}
+
+.payment-extra-input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 2px solid var(--sand-dark);
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    background: white;
+}
+
+.payment-extra-input:focus {
+    outline: none;
+    border-color: var(--sunset-orange);
+}
+
+.payment-extra-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-light);
+    margin-bottom: 6px;
 }
 
 /* ============================================
@@ -256,7 +291,7 @@ body {
     border-radius: 24px;
     padding: 28px;
     width: 100%;
-    max-width: 380px;
+    max-width: 400px;
     max-height: 90vh;
     overflow-y: auto;
     transform: translateY(20px);
@@ -339,7 +374,7 @@ body {
     border: 2px solid var(--sand-dark);
     border-radius: 12px;
     font-family: 'DM Sans', sans-serif;
-    font-size: 16px;
+    font-size: 14px;
     background: white;
     cursor: pointer;
     appearance: none;
@@ -352,6 +387,12 @@ body {
 .modal-select:focus {
     outline: none;
     border-color: var(--sunset-orange);
+}
+
+.modal-select:disabled {
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+    opacity: 0.7;
 }
 
 .modal-buttons {
@@ -492,21 +533,21 @@ body {
 /* ============================================
    Responsive
    ============================================ */
-@media (max-width: 360px) {
-    .quick-buttons {
+@media (max-width: 380px) {
+    .payment-buttons {
         grid-template-columns: repeat(2, 1fr);
     }
     
-    .quick-btn {
-        padding: 14px 10px;
+    .payment-btn {
+        padding: 12px 6px;
+        font-size: 10px;
+    }
+
+    .payment-btn-icon {
+        font-size: 20px;
     }
 
     .modal {
         padding: 20px;
     }
-}
-
-/* Ocultar toda la sección de gastos rápidos */
-section.card:nth-of-type(2) {
-    display: none !important;
 }

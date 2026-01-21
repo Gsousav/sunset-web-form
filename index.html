@@ -42,52 +42,67 @@
             </div>
         </section>
 
-        <!-- Quick Expenses -->
+        <!-- Payment Methods -->
         <section class="card">
             <h2 class="card-title">
-                <span class="card-title-icon">⚡</span>
-                Gastos Rápidos
+                <span class="card-title-icon">💳</span>
+                Forma de Pago
             </h2>
-            <div class="quick-buttons">
-                <button class="quick-btn" data-code="GV-06" data-category="Servicio Envíos / Repartos" data-description="Movilidad y taxi">
-                    <span class="quick-btn-icon">🚕</span>
-                    Movilidad
-                    <span class="quick-btn-label">GV-06</span>
+            <div class="payment-buttons">
+                <button class="payment-btn" data-payment="Efectivo">
+                    <span class="payment-btn-icon">💵</span>
+                    <span class="payment-btn-label">Efectivo</span>
                 </button>
-                <button class="quick-btn" data-code="CI-01" data-category="Servicios básicos y operación" data-description="Luz Fabrica">
-                    <span class="quick-btn-icon">⚡</span>
-                    Luz Fábrica
-                    <span class="quick-btn-label">CI-01</span>
+                <button class="payment-btn" data-payment="Yape">
+                    <span class="payment-btn-icon">📱</span>
+                    <span class="payment-btn-label">Yape</span>
                 </button>
-                <button class="quick-btn" data-code="CI-01" data-category="Servicios básicos y operación" data-description="Agua Fabrica">
-                    <span class="quick-btn-icon">💧</span>
-                    Agua Fábrica
-                    <span class="quick-btn-label">CI-01</span>
+                <button class="payment-btn" data-payment="Transferencia" data-extra="true">
+                    <span class="payment-btn-icon">🏦</span>
+                    <span class="payment-btn-label">Transferencia</span>
                 </button>
-                <button class="quick-btn" data-code="MD-04" data-category="Cuerdas Fundas Otros" data-description="Materiales varios">
-                    <span class="quick-btn-icon">📦</span>
-                    Materiales
-                    <span class="quick-btn-label">MD-04</span>
+                <button class="payment-btn" data-payment="Mercado Pago">
+                    <span class="payment-btn-icon">🛒</span>
+                    <span class="payment-btn-label">Mercado Pago</span>
                 </button>
-                <button class="quick-btn" data-code="GV-06" data-category="Servicio Envíos / Repartos" data-description="DHL / Envíos Export">
-                    <span class="quick-btn-icon">🚚</span>
-                    Envíos
-                    <span class="quick-btn-label">GV-06</span>
+                <button class="payment-btn" data-payment="PayPal">
+                    <span class="payment-btn-icon">🅿️</span>
+                    <span class="payment-btn-label">PayPal</span>
                 </button>
+                <button class="payment-btn" data-payment="Cargo en cuenta">
+                    <span class="payment-btn-icon">💳</span>
+                    <span class="payment-btn-label">Cargo en cuenta</span>
+                </button>
+                <button class="payment-btn" data-payment="Otros" data-extra="true">
+                    <span class="payment-btn-icon">📝</span>
+                    <span class="payment-btn-label">Otros</span>
+                </button>
+            </div>
+            
+            <!-- Extra field for Transferencia -->
+            <div class="payment-extra-field" id="extraTransferencia">
+                <label class="payment-extra-label">¿Desde qué cuenta?</label>
+                <input type="text" class="payment-extra-input" id="inputTransferencia" placeholder="Ej: BCP Lucía, Interbank Andrés...">
+            </div>
+            
+            <!-- Extra field for Otros -->
+            <div class="payment-extra-field" id="extraOtros">
+                <label class="payment-extra-label">Especificar forma de pago</label>
+                <input type="text" class="payment-extra-input" id="inputOtros" placeholder="Ej: Cheque, Crédito proveedor...">
             </div>
         </section>
 
         <!-- AI Input -->
         <section class="card">
             <h2 class="card-title">
-                <span class="card-title-icon">💵</span>
-                Escribe tu gasto
+                <span class="card-title-icon">✨</span>
+                Describe el gasto
             </h2>
             <div class="ai-input-wrapper">
                 <textarea 
                     class="ai-input" 
                     id="aiInput" 
-                    placeholder="Ej: yape 50 soles foam proveedor"
+                    placeholder="Ej: pague 500 soles de luz de la fabrica"
                     rows="2"
                 ></textarea>
                 <button class="ai-send-btn" id="aiSendBtn">➤</button>
@@ -97,37 +112,7 @@
     </div>
 
     <!-- ============================================
-         MODAL: Quick Expense
-         ============================================ -->
-    <div class="modal-overlay" id="quickModal">
-        <div class="modal">
-            <div class="modal-header">
-                <div class="modal-icon" id="quickModalIcon">🚕</div>
-                <div>
-                    <div class="modal-title" id="quickModalTitle">Movilidad</div>
-                    <div class="modal-subtitle" id="quickModalSubtitle">GV-06 • Servicio Envíos</div>
-                </div>
-            </div>
-            
-            <div class="modal-field">
-                <label class="modal-label" for="quickAmount">Monto (S/)</label>
-                <input type="number" class="modal-input modal-input-large" id="quickAmount" placeholder="0.00" inputmode="decimal">
-            </div>
-            
-            <div class="modal-field">
-                <label class="modal-label" for="quickNote">Nota (opcional)</label>
-                <input type="text" class="modal-input" id="quickNote" placeholder="Detalles adicionales...">
-            </div>
-
-            <div class="modal-buttons">
-                <button class="modal-btn modal-btn-cancel" id="quickCancel">Cancelar</button>
-                <button class="modal-btn modal-btn-confirm" id="quickConfirm">Registrar</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- ============================================
-         MODAL: AI Response (Editable)
+         MODAL: AI Response (Editable with cascading dropdowns)
          ============================================ -->
     <div class="modal-overlay" id="aiModal">
         <div class="modal">
@@ -149,54 +134,59 @@
 
             <!-- Editable form (hidden initially) -->
             <div id="aiForm" style="display: none;">
+                
+                <!-- Rubro -->
                 <div class="modal-field">
-                    <label class="modal-label" for="aiCodigo">Código</label>
-                    <select class="modal-select" id="aiCodigo">
-                        <option value="MD-01">MD-01 - Blanks (tabla)</option>
-                        <option value="MD-02">MD-02 - Vinilo (forros)</option>
-                        <option value="MD-03">MD-03 - Accesorios Tablas</option>
-                        <option value="MD-04">MD-04 - Cuerdas Fundas Otros</option>
-                        <option value="MD-05">MD-05 - Embalaje y otros</option>
-                        <option value="MD-06">MD-06 - Fibra de vidrio</option>
-                        <option value="GV-01">GV-01 - Sueldos y Comisiones</option>
-                        <option value="GV-02">GV-02 - Publicidad</option>
-                        <option value="GV-03">GV-03 - Contenido Audiovisual</option>
-                        <option value="GV-04">GV-04 - Dalias Alquiler/Servicios</option>
-                        <option value="GV-05">GV-05 - Página Web</option>
-                        <option value="GV-06">GV-06 - Servicio Envíos/Repartos</option>
-                        <option value="GA-01">GA-01 - Sueldos Administrativos</option>
-                        <option value="GA-02">GA-02 - Impuestos y otros</option>
-                        <option value="GA-03">GA-03 - Servicios Admin</option>
-                        <option value="GA-04">GA-04 - Otros Admin</option>
-                        <option value="CI-01">CI-01 - Servicios fábrica</option>
-                        <option value="CI-02">CI-02 - Insumos y mantenimiento</option>
-                        <option value="CI-03">CI-03 - Servicios de terceros</option>
-                        <option value="CI-04">CI-04 - Activos y alquileres</option>
-                        <option value="MO-01">MO-01 - Mano de Obra</option>
-                        <option value="IL-01">IL-01 - Importaciones</option>
-                        <option value="IL-02">IL-02 - Productos Locales</option>
-                        <option value="CF-01">CF-01 - Café Sunset Dalias</option>
+                    <label class="modal-label" for="aiRubro">Rubro</label>
+                    <select class="modal-select" id="aiRubro">
+                        <option value="">Seleccionar rubro...</option>
+                        <option value="1. MATERIALES DIRECTOS">1. MATERIALES DIRECTOS</option>
+                        <option value="2. GASTOS DE VENTAS">2. GASTOS DE VENTAS</option>
+                        <option value="3. GASTOS ADMINSTRATIVOS">3. GASTOS ADMINISTRATIVOS</option>
+                        <option value="4. COSTOS INDIRECTOS-FABRICACIÓN">4. COSTOS INDIRECTOS-FABRICACIÓN</option>
+                        <option value="5. MANO DE OBRA">5. MANO DE OBRA</option>
+                        <option value="6. IMPORTACIONES">6. IMPORTACIONES</option>
                     </select>
                 </div>
 
+                <!-- Categoría (se llena dinámicamente) -->
                 <div class="modal-field">
-                    <label class="modal-label" for="aiDescripcion">Descripción</label>
-                    <input type="text" class="modal-input" id="aiDescripcion" placeholder="Descripción del gasto">
+                    <label class="modal-label" for="aiCategoria">Categoría</label>
+                    <select class="modal-select" id="aiCategoria" disabled>
+                        <option value="">Primero selecciona un rubro...</option>
+                    </select>
                 </div>
 
+                <!-- Descripción (se llena dinámicamente) -->
+                <div class="modal-field">
+                    <label class="modal-label" for="aiDescripcion">Descripción</label>
+                    <select class="modal-select" id="aiDescripcion" disabled>
+                        <option value="">Primero selecciona una categoría...</option>
+                    </select>
+                </div>
+
+                <!-- Código (automático, solo lectura visual) -->
+                <div class="modal-field">
+                    <label class="modal-label" for="aiCodigo">Código</label>
+                    <input type="text" class="modal-input" id="aiCodigo" readonly style="background: #f5f5f5;">
+                </div>
+
+                <!-- Monto -->
                 <div class="modal-field">
                     <label class="modal-label" for="aiMonto">Monto</label>
                     <input type="number" class="modal-input modal-input-large" id="aiMonto" placeholder="0.00" inputmode="decimal">
                 </div>
 
+                <!-- Moneda -->
                 <div class="modal-field">
                     <label class="modal-label" for="aiMoneda">Moneda</label>
                     <select class="modal-select" id="aiMoneda">
-                        <option value="PEN">PEN</option>
-                        <option value="USD">USD</option>
+                        <option value="PEN">PEN (Soles)</option>
+                        <option value="USD">USD (Dólares)</option>
                     </select>
                 </div>
 
+                <!-- Nota -->
                 <div class="modal-field">
                     <label class="modal-label" for="aiNota">Nota</label>
                     <input type="text" class="modal-input" id="aiNota" placeholder="Nota adicional (opcional)">
@@ -205,7 +195,7 @@
 
             <div class="modal-buttons" id="aiButtons" style="display: none;">
                 <button class="modal-btn modal-btn-cancel" id="aiCancel">Cancelar</button>
-                <button class="modal-btn modal-btn-confirm" id="aiConfirm">✓ Confirmar</button>
+                <button class="modal-btn modal-btn-confirm" id="aiConfirm">✓ Registrar</button>
             </div>
         </div>
     </div>
