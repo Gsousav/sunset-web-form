@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0D1B2A">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Sunset - Registro de Gastos</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="img/sunset.png">
+    <link rel="apple-touch-icon" href="img/sunset.png">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,9 +24,8 @@
         
         <!-- Header -->
         <header class="header">
-            <div class="logo">
-                <span class="logo-icon">☀️</span>
-                SUNSET
+            <div class="logo-container">
+                <img src="img/sunset.png" alt="Sunset Board" class="logo-img">
             </div>
             <p class="header-subtitle">Registro de Gastos</p>
         </header>
@@ -35,8 +40,9 @@
                 <select class="user-select" id="userSelect">
                     <option value="">Seleccionar...</option>
                     <option value="Andres">Andrés</option>
-                    <option value="Lucia">Lucía</option>
+                    <option value="Lucia" selected>Lucía</option>
                     <option value="Matias">Matías</option>
+                    <option value="Betty">Betty</option>
                     <option value="Otro">Otro</option>
                 </select>
             </div>
