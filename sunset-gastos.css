@@ -169,6 +169,12 @@ body {
     font-size: 24px;
 }
 
+.payment-btn-logo {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
 .payment-btn-label {
     line-height: 1.2;
 }
@@ -545,6 +551,11 @@ body {
 
     .payment-btn-icon {
         font-size: 20px;
+    }
+
+    .payment-btn-logo {
+        width: 28px;
+        height: 28px;
     }
 
     .modal {
