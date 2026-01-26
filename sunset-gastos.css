@@ -744,19 +744,12 @@ body.modal-open {
     color: white;
 }
 
-input[type="date"].modal-input {
+.date-wrapper {
     width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
     overflow: hidden;
-    text-overflow: ellipsis;
 }
 
-.modal {
-    overflow-x: hidden;
-    max-width: calc(100vw - 32px);
-}
-
-.modal-field {
-    overflow: hidden;
+.date-wrapper input[type="date"] {
+    width: 100%;
+    max-width: 100%;
 }
