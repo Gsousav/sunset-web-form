@@ -781,6 +781,7 @@ body.modal-open {
     cursor: pointer;
     -webkit-appearance: none;
     appearance: none;
+    z-index: 10;
 }
 
 .date-field:focus-within {

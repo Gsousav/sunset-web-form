@@ -548,6 +548,10 @@ aiFecha.addEventListener('change', () => {
     aiFechaDisplay.textContent = formatDateDisplay(aiFecha.value);
 });
 
+document.querySelector('.date-field').addEventListener('click', () => {
+    aiFecha.showPicker();
+});
+
 // ============================================
 // AI - TEXTO LIBRE
 // ============================================
