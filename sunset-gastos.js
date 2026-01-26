@@ -336,6 +336,7 @@ const aiConfirm = document.getElementById('aiConfirm');
 
 // Form fields
 const aiFecha = document.getElementById('aiFecha');
+const aiFechaDisplay = document.getElementById('aiFechaDisplay');
 const aiRubro = document.getElementById('aiRubro');
 const aiCategoria = document.getElementById('aiCategoria');
 const aiDescripcion = document.getElementById('aiDescripcion');
@@ -427,6 +428,20 @@ function getTodayISO() {
     return today.toISOString().split('T')[0];
 }
 
+function formatDateDisplay(isoDate) {
+    if (!isoDate) return 'Hoy';
+    const [year, month, day] = isoDate.split('-');
+    const date = new Date(year, month - 1, day);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    const diffDays = Math.floor((today - date) / (1000 * 60 * 60 * 24));
+    
+    if (diffDays === 0) return 'Hoy - ' + `${day}/${month}/${year}`;
+    if (diffDays === 1) return 'Ayer - ' + `${day}/${month}/${year}`;
+    return `${day}/${month}/${year}`;
+}
+
 function formatDateForDisplay(isoDate) {
     if (!isoDate) return new Date().toLocaleDateString('es-PE');
     const [year, month, day] = isoDate.split('-');
@@ -437,6 +452,7 @@ function initDateField() {
     const today = getTodayISO();
     aiFecha.value = today;
     aiFecha.max = today;
+    aiFechaDisplay.textContent = formatDateDisplay(today);
 }
 
 function closeModal(modal) {
@@ -525,6 +541,11 @@ aiCategoria.addEventListener('change', () => {
     } else {
         aiDescripcion.disabled = true;
     }
+});
+
+// Actualizar display cuando cambia la fecha
+aiFecha.addEventListener('change', () => {
+    aiFechaDisplay.textContent = formatDateDisplay(aiFecha.value);
 });
 
 // ============================================
