@@ -441,10 +441,12 @@ function initDateField() {
 
 function closeModal(modal) {
     modal.classList.remove('active');
+    document.body.classList.remove('modal-open');
 }
 
 function openModal(modal) {
     modal.classList.add('active');
+    document.body.classList.add('modal-open');
 }
 
 // ============================================
