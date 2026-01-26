@@ -743,3 +743,12 @@ body.modal-open {
     background: var(--sunset-gold);
     color: white;
 }
+
+input[type="date"].modal-input {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.modal {
+    overflow-x: hidden;
+}
