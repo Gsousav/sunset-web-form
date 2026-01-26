@@ -746,9 +746,17 @@ body.modal-open {
 
 input[type="date"].modal-input {
     width: 100%;
+    min-width: 0;
     box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .modal {
     overflow-x: hidden;
+    max-width: calc(100vw - 32px);
+}
+
+.modal-field {
+    overflow: hidden;
 }
