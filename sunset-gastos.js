@@ -335,6 +335,7 @@ const aiCancel = document.getElementById('aiCancel');
 const aiConfirm = document.getElementById('aiConfirm');
 
 // Form fields
+const aiFecha = document.getElementById('aiFecha');
 const aiRubro = document.getElementById('aiRubro');
 const aiCategoria = document.getElementById('aiCategoria');
 const aiDescripcion = document.getElementById('aiDescripcion');
@@ -419,6 +420,23 @@ function getTimestamp() {
 
 function getDate() {
     return new Date().toLocaleDateString('es-PE');
+}
+
+function getTodayISO() {
+    const today = new Date();
+    return today.toISOString().split('T')[0];
+}
+
+function formatDateForDisplay(isoDate) {
+    if (!isoDate) return new Date().toLocaleDateString('es-PE');
+    const [year, month, day] = isoDate.split('-');
+    return `${day}/${month}/${year}`;
+}
+
+function initDateField() {
+    const today = getTodayISO();
+    aiFecha.value = today;
+    aiFecha.max = today;
 }
 
 function closeModal(modal) {
@@ -655,8 +673,8 @@ function showAIResult(data) {
     }
 
     // Llenar otros campos
-    aiMonto.value = data.monto || 0;
-    aiMoneda.value = data.moneda || 'PEN';
+    initDateField();
+    aiMonto.value = data.monto && data.monto > 0 ? data.monto : '';    aiMoneda.value = data.moneda || 'PEN';
     aiNota.value = data.nota || '';
 
     // Focus en monto para verificar
@@ -698,7 +716,7 @@ aiConfirm.addEventListener('click', async () => {
 
     const data = {
         tipo: 'confirm',
-        fecha: getDate(),
+        fecha: formatDateForDisplay(aiFecha.value),
         rubro: aiRubro.value,
         codigo: aiCodigo.value,
         categoria: aiCategoria.value,
@@ -736,6 +754,7 @@ aiConfirm.addEventListener('click', async () => {
 
 function resetForm() {
     aiInput.value = '';
+    aiFecha.value = '';
     aiRubro.value = '';
     aiCategoria.innerHTML = '<option value="">Primero selecciona un rubro...</option>';
     aiCategoria.disabled = true;
