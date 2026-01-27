@@ -424,8 +424,14 @@ function getDate() {
 }
 
 function getTodayISO() {
-    const today = new Date();
-    return today.toISOString().split('T')[0];
+    const now = new Date();
+    const peruDate = new Intl.DateTimeFormat('sv-SE', {
+        timeZone: 'America/Lima',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+    }).format(now);
+    return peruDate; // Formato YYYY-MM-DD
 }
 
 function formatDateDisplay(isoDate) {
