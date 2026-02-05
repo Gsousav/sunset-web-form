@@ -176,7 +176,7 @@ const CATALOGO = {
                 "Imp. Renta RE 1.5% +IGV 18% + DETRACCIONES",
                 "Renta de 4TA - RETENCIONES 8%",
                 "Interes Letras Dep.export etc",
-                "Legalización, Notarias, Legal, utiles",
+                "Legalización, Notarias, Legal, utiles de oficina",
                 "SISTEMA SISCONT - LICENCIAS FACTURADOR",
                 "Gtos financieros BCP cta PAI y Innovate",
                 "IGV compras de luc, and, mat, dan, charo, claudio",
