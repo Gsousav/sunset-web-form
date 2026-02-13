@@ -264,7 +264,7 @@ const CATALOGO = {
             ]
         }
     },
-    "6. IMPORTACIONES": {
+    "6. IMPORTACIONES Y COMPRAS LOCALES": {
         "Importaciones": {
             codigo: "IL-01",
             descripciones: [
@@ -306,6 +306,9 @@ const CATALOGO = {
                 "AMIGOS DEL MAR - LATAM (Protect solar)",
                 "Holders (Nicolas Fisher)",
                 "KOMBUCHA- QAMBU",
+                "Maikoa",
+                "Lobs bloqueadores",
+                "GATORADE - AGUA - CAFÉ",
                 "Otros"
             ]
         }
